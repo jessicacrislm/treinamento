@@ -4,9 +4,14 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -14,27 +19,35 @@ import javax.validation.constraints.Size;
 @Entity
 @SuppressWarnings("serial")
 @Table(name = "tb_menu")
-public class Menu implements Serializable{
+public class Menu implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "menu_sequence")
 	@SequenceGenerator(name = "menu_sequence", sequenceName = "menu_id_sequence", allocationSize = 1)
 	@Column(name = "id_menu", nullable = false)
 	private Long id;
-	
+
 	@Size(min = 5, max = 45)
 	@Column(name = "ds_descricao", length = 45, nullable = false)
 	private String descricao;
-	
+
 	@Size(min = 5, max = 150)
 	@Column(name = "ds_url", length = 150, nullable = false)
 	private String url;
-	
-	@Column(name = "ds_icone", length = 45, nullable = false)
+
+	@Column(name = "ds_icone", length = 45)
 	private String icone;
-	
-	@Column(name = "ds_indice", length = 45, nullable = false)
+
+	@Column(name = "ds_indice", length = 45)
 	private String indice;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_permissao_acesso", foreignKey = @ForeignKey(name = "fk_menu_permissao_acesso"))
+	private PermissaoAcesso permissaoAcesso;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_menu_pai", foreignKey = @ForeignKey(name="fk_menu_menu"))
+	private Menu menuPai;
 
 	public Long getId() {
 		return id;
@@ -76,5 +89,4 @@ public class Menu implements Serializable{
 		this.indice = indice;
 	}
 
-	
 }

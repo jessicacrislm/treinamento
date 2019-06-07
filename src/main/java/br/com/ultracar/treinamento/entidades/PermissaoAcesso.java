@@ -1,16 +1,22 @@
 package br.com.ultracar.treinamento.entidades;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -37,6 +43,25 @@ public class PermissaoAcesso implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
+	
+	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_grupo_acesso", foreignKey = @ForeignKey (name = "fk_permissao_acesso_grupo_acesso"), nullable = false)
+	private GrupoAcesso grupoAcesso;
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "tb_permissao_acesso_operacao", 
+			joinColumns = {@JoinColumn(name = "id_operacao")},
+			inverseJoinColumns = {@JoinColumn (name = "id_permissao_acesso")})
+	private Set<Operacao> operacoes = new HashSet<>();
+
+	public GrupoAcesso getGrupoAcesso() {
+		return grupoAcesso;
+	}
+
+	public void setGrupoAcesso(GrupoAcesso grupoAcesso) {
+		this.grupoAcesso = grupoAcesso;
+	}
 
 	public Usuario getUsuario() {
 		return usuario;

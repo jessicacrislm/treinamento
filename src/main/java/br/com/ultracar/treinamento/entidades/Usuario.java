@@ -1,9 +1,9 @@
 package br.com.ultracar.treinamento.entidades;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -63,8 +63,35 @@ public class Usuario implements Serializable {
 	private Situacao situacao;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
-	private List<PermissaoAcesso> permissoesAcesso = new ArrayList<>();
+	private Set<PermissaoAcesso> permissoesAcesso = new HashSet<>();
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
+	private Set<GrupoAcesso> grupoDeAcesso = new HashSet<>();	
+	
+	public Set<PermissaoAcesso> getPermissoesAcesso() {
+		return permissoesAcesso;
+	}
+
+	public void setPermissoesAcesso(Set<PermissaoAcesso> permissoesAcesso) {
+		this.permissoesAcesso = permissoesAcesso;
+	}
+
+	public Set<GrupoAcesso> getGrupoDeAcesso() {
+		return grupoDeAcesso;
+	}
+
+	public void setGrupoDeAcesso(Set<GrupoAcesso> grupoDeAcesso) {
+		this.grupoDeAcesso = grupoDeAcesso;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	@Transient
 	private String token;
 
