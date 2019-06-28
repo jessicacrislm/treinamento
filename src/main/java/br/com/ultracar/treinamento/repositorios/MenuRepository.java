@@ -15,12 +15,12 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
 			+ "Inner Join permissaoAcesso.grupoAcesso grupoAcesso " 
 			+ "Inner Join grupoAcesso.usuario usuario "
 			+ "Where usuario = :usuario")
-	public List<Menu> findMenuByUsuario(Usuario usuario);
+	public List<Menu> findByUsuario(Usuario usuario);
 	
 	@Query("Select menu From Menu menu" 
 			+ "Inner Join menu.permissaoAcesso permissaoAcesso "
 			+ "Inner Join permissaoAcesso.grupoAcesso grupoAcesso " 
 			+ "Inner Join grupoAcesso.usuario usuario "
 			+ "Where usuario.id = :IdUsuario")
-	public List<Menu> findMenuByIdUsuario(Long IdUsuario);
+	public List<Menu> findByIdUsuario(Long IdUsuario);
 }
