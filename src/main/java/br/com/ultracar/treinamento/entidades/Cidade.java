@@ -4,11 +4,16 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -25,6 +30,11 @@ public class Cidade implements Serializable{
 	@Size(min = 5, max = 38)
 	@Column(name = "ds_nome", length = 38, nullable = false)
 	private String nome;
+	
+	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_estado", nullable = false, foreignKey = @ForeignKey(name = "fk_cidade_estado"))
+	private Estado estado;
 
 	public Long getId() {
 		return id;
@@ -41,5 +51,12 @@ public class Cidade implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
 }
