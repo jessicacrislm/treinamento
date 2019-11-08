@@ -1,4 +1,4 @@
-package br.com.ultracar.treinamento.entidades;
+package br.com.ultracar.treinamento.entities;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,41 +22,40 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.ultracar.treinamento.entidades.enumeradores.Situacao;
+import br.com.ultracar.treinamento.enumerators.Situacao;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "tb_usuario")
-public class Usuario implements Serializable {
+public class Usuario implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_sequence")
 	@SequenceGenerator(name = "usuario_sequence", sequenceName = "usuario_id_sequence", allocationSize = 1)
 	@Column(name = "id_usuario", nullable = false)
 	private Long id;
-
+	
 	@NotBlank
-	@Size(min = 5, max = 45)
-	@Column(name = "ds_login", nullable = false, length = 45)
+	@Size(min = 5, max =45)
+	@Column(name = "ds_login", length = 45, nullable = false)
 	private String login;
-
+	
 	@NotBlank
-	@Size(min = 5, max = 45)
-	@Column(name = "ds_senha", nullable = false, length = 45)
+	@Column(name = "ds_senha", length = 45, nullable = false)
 	private String senha;
-
-	@NotNull
-	@Column(name = "dt_ultimo_acesso", nullable = false)
-	private Date ultimoAcesso;
-
+	
 	@Email
 	@Column(name = "ds_email", length = 45)
 	private String email;
+	
+	@NotNull
+	@Column(name = "dt_ultimo_acesso", length = 45)
+	private Date ultimoAcesso;
 
 	@NotNull
 	@Column(name = "lg_administrador", nullable = false)
 	private boolean administrador;
-
+	
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "en_situacao", nullable = false)
@@ -66,35 +65,11 @@ public class Usuario implements Serializable {
 	private Set<PermissaoAcesso> permissoesAcesso = new HashSet<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
-	private Set<GrupoAcesso> grupoDeAcesso = new HashSet<>();	
+	private Set<GrupoAcesso> grupoAcesso = new HashSet<>();
 	
-	public Set<PermissaoAcesso> getPermissoesAcesso() {
-		return permissoesAcesso;
-	}
-
-	public void setPermissoesAcesso(Set<PermissaoAcesso> permissoesAcesso) {
-		this.permissoesAcesso = permissoesAcesso;
-	}
-
-	public Set<GrupoAcesso> getGrupoDeAcesso() {
-		return grupoDeAcesso;
-	}
-
-	public void setGrupoDeAcesso(Set<GrupoAcesso> grupoDeAcesso) {
-		this.grupoDeAcesso = grupoDeAcesso;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
-
 	@Transient
 	private String token;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -119,20 +94,20 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	public Date getUltimoAcesso() {
-		return ultimoAcesso;
-	}
-
-	public void setUltimoAcesso(Date ultimoAcesso) {
-		this.ultimoAcesso = ultimoAcesso;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Date getUltimoAcesso() {
+		return ultimoAcesso;
+	}
+
+	public void setUltimoAcesso(Date ultimoAcesso) {
+		this.ultimoAcesso = ultimoAcesso;
 	}
 
 	public boolean isAdministrador() {
@@ -151,4 +126,20 @@ public class Usuario implements Serializable {
 		this.situacao = situacao;
 	}
 
+	public Set<PermissaoAcesso> getPermissoesAcesso() {
+		return permissoesAcesso;
+	}
+
+	public void setPermissoesAcesso(Set<PermissaoAcesso> permissoesAcesso) {
+		this.permissoesAcesso = permissoesAcesso;
+	}
+
+	public Set<GrupoAcesso> getGrupoAcesso() {
+		return grupoAcesso;
+	}
+
+	public void setGrupoAcesso(Set<GrupoAcesso> grupoAcesso) {
+		this.grupoAcesso = grupoAcesso;
+	}
+	
 }

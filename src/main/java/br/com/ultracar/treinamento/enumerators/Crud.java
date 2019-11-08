@@ -1,5 +1,7 @@
-package br.com.ultracar.treinamento.entidades.enumeradores;
+package br.com.ultracar.treinamento.enumerators;
 
 public enum Crud {
+
 	INCLUIR, ALTERAR, EXCLUIR, VISUALIZAR;
+	
 }

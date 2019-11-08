@@ -1,4 +1,4 @@
-package br.com.ultracar.treinamento.entidades;
+package br.com.ultracar.treinamento.entities;
 
 import java.io.Serializable;
 
@@ -14,40 +14,49 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@Entity
 @SuppressWarnings("serial")
+@Entity
 @Table(name = "tb_menu")
-public class Menu implements Serializable {
+public class Menu implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "menu_sequence")
-	@SequenceGenerator(name = "menu_sequence", sequenceName = "menu_id_sequence", allocationSize = 1)
+	@SequenceGenerator(name = "permissao_sequence", sequenceName = "menu_id_sequence", allocationSize = 1)
 	@Column(name = "id_menu", nullable = false)
 	private Long id;
-
-	@Size(min = 5, max = 45)
-	@Column(name = "ds_descricao", length = 45, nullable = false)
+	
+	@NotBlank
+	@Size(min = 5, max =45)
+	@Column(name = "tp_descricao", nullable = false)
 	private String descricao;
-
-	@Size(min = 5, max = 150)
-	@Column(name = "ds_url", length = 150, nullable = false)
+	
+	@NotBlank
+	@Size(min = 5, max =150)
+	@Column(name = "tp_url", nullable = false)
 	private String url;
-
-	@Column(name = "ds_icone", length = 45)
+	
+	@NotBlank
+	@Size(min = 5, max =45)
+	@Column(name = "tp_icone")
 	private String icone;
-
-	@Column(name = "ds_indice", length = 45)
+	
+	@NotBlank
+	@Size(min = 5, max =45)
+	@Column(name = "tp_indice")
 	private String indice;
-
+	
+	@NotNull
+	@JoinColumn(name = "ID_PERMISSAO_ACESSO", foreignKey = @ForeignKey(name = "fk_menu_permissao_acesso"), nullable = false)
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_permissao_acesso", foreignKey = @ForeignKey(name = "fk_menu_permissao_acesso"))
 	private PermissaoAcesso permissaoAcesso;
 	
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_menu_pai", foreignKey = @ForeignKey(name="fk_menu_menu"))
-	private Menu menuPai;
+	@JoinColumn(name = "id_menu_pai", foreignKey = @ForeignKey(name = "fk_menu_menu"))
+	private Menu menu;
 
 	public Long getId() {
 		return id;
@@ -88,5 +97,7 @@ public class Menu implements Serializable {
 	public void setIndice(String indice) {
 		this.indice = indice;
 	}
-
+	
+	
+	
 }

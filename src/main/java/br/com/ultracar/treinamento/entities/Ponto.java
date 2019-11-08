@@ -1,4 +1,4 @@
-package br.com.ultracar.treinamento.entidades;
+package br.com.ultracar.treinamento.entities;
 
 import java.io.Serializable;
 
@@ -27,8 +27,8 @@ public class Ponto implements Serializable{
 	private Long id;
 	
 	@NotNull
+	@JoinColumn(name = "ID_ENDERECO", nullable = false, foreignKey = @ForeignKey(name = "fk_ponto_endereco"))
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_endereco", nullable = false, foreignKey = @ForeignKey(name = "fk_ponto_endereco"))
 	private Endereco endereco;
 
 	public Long getId() {
@@ -46,4 +46,5 @@ public class Ponto implements Serializable{
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
+	
 }
