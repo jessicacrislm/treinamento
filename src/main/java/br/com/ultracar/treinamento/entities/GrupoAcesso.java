@@ -30,57 +30,24 @@ import lombok.Data;
 @Table(name = "tb_grupoAcesso")
 public class GrupoAcesso implements Serializable{
 	
-	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "grupoAcesso_sequence")
-	@SequenceGenerator(name = "permissao_sequence", sequenceName = "grupoAcesso_id_sequence", allocationSize = 1)
-	@Column(name = "id_grupoAcesso", nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "grupo_acesso_sequence")
+	@SequenceGenerator(name = "grupo_acesso_sequence", sequenceName = "grupo_acesso_id_sequence", allocationSize = 1)
+	@Column(name = "id_grupo_acesso", nullable = false)
 	private Long id;
 	
 	@NotBlank
 	@Size(min = 5, max =45)
-	@Column(name = "tp_descricao", nullable = false)
+	@Column(name = "ds_descricao", nullable = false)
 	private String descricao;
 	
 	@Builder.Default
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "grupoAcesso")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "grupo_acesso")
 	private Set<PermissaoAcesso> permissoesAcesso = new HashSet<>();
 	
 	@NotNull
-	@JoinColumn(name = "ID_USUARIO", nullable = false, foreignKey = @ForeignKey(name = "fk_grupo_acesso_usuario"))
+	@JoinColumn(name = "id_usuario", nullable = false, foreignKey = @ForeignKey(name = "fk_grupo_acesso_usuario"))
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Usuario usuario;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public Set<PermissaoAcesso> getPermissoesAcesso() {
-		return permissoesAcesso;
-	}
-
-	public void setPermissoesAcesso(Set<PermissaoAcesso> permissoesAcesso) {
-		this.permissoesAcesso = permissoesAcesso;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-	
 }

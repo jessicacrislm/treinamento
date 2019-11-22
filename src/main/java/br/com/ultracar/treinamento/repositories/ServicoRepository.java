@@ -15,13 +15,12 @@ import br.com.ultracar.treinamento.enumerators.Crud;
 public interface ServicoRepository extends JpaRepository<Servico, Long> {
 
 	@Async
-	@Query("Select servico From Servico servico " + "Inner Join servico.operacao operacao "
-			+ "Where operacao.tipoOperacao = :tipoOperacao")
+	@Query("Select s From Servico s " + "Inner Join s.operacao o " + "Where o.tipoOperacao = :tipoOperacao")
 	public List<Servico> findByTipoOperacao(Crud tipoOperacao);
 
 	@Modifying
-	@Query("Update servico From Servico servico " + "Set servico.solicitante.id = :novoSolicitante "
-			+ "Where servico.solicitante.id = :idSolicitante ")
+	@Query("Update s From Servico s " + "Set s.solicitante.id = :novoSolicitante "
+			+ "Where s.solicitante.id = :idSolicitante ")
 	public void updateBySolicitante(Long novoSolicitante, Long idSolicitante);
 
 }

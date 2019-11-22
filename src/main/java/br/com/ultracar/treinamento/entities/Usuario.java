@@ -71,81 +71,9 @@ public class Usuario implements Serializable{
 	
 	@Builder.Default
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
-	private Set<GrupoAcesso> grupoAcesso = new HashSet<>();
+	private Set<GrupoAcesso> gruposAcesso = new HashSet<>();
 	
 	@Transient
 	private String token;
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Date getUltimoAcesso() {
-		return ultimoAcesso;
-	}
-
-	public void setUltimoAcesso(Date ultimoAcesso) {
-		this.ultimoAcesso = ultimoAcesso;
-	}
-
-	public boolean isAdministrador() {
-		return administrador;
-	}
-
-	public void setAdministrador(boolean administrador) {
-		this.administrador = administrador;
-	}
-
-	public Situacao getSituacao() {
-		return situacao;
-	}
-
-	public void setSituacao(Situacao situacao) {
-		this.situacao = situacao;
-	}
-
-	public Set<PermissaoAcesso> getPermissoesAcesso() {
-		return permissoesAcesso;
-	}
-
-	public void setPermissoesAcesso(Set<PermissaoAcesso> permissoesAcesso) {
-		this.permissoesAcesso = permissoesAcesso;
-	}
-
-	public Set<GrupoAcesso> getGrupoAcesso() {
-		return grupoAcesso;
-	}
-
-	public void setGrupoAcesso(Set<GrupoAcesso> grupoAcesso) {
-		this.grupoAcesso = grupoAcesso;
-	}
 	
 }

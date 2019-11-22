@@ -63,46 +63,4 @@ public class Menu implements Serializable{
 	@JoinColumn(name = "id_menu_pai", foreignKey = @ForeignKey(name = "fk_menu_menu"))
 	private Menu menu;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getIcone() {
-		return icone;
-	}
-
-	public void setIcone(String icone) {
-		this.icone = icone;
-	}
-
-	public String getIndice() {
-		return indice;
-	}
-
-	public void setIndice(String indice) {
-		this.indice = indice;
-	}
-	
-	
-	
 }

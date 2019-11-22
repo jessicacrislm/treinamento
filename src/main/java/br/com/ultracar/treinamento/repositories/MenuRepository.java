@@ -13,7 +13,7 @@ import br.com.ultracar.treinamento.entities.Usuario;
 public interface MenuRepository extends JpaRepository<Menu, Long> {
 
 	@Query("Select m From Menu m "
-		 + "Inner Join m.permissaoAcesso pa "
+		 + "Inner Join Fetch m.permissaoAcesso pa "
 		 + "Where pa = :permissao")
 	public List<Menu> findByPermissaoAcesso(PermissaoAcesso permissao);
 	
@@ -21,8 +21,8 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
 	public List<Menu> findByDescricao(String descricao);
 	
 	@Query("Select m From Menu m "
-		 + "Inner Join m.permissaoAcesso pa "
-		 + "Inner Join pa.usuario u "
+		 + "Inner Join Fetch m.permissaoAcesso pa "
+		 + "Inner Join Fetch pa.usuario u "
 		 + "Where u = :usuario")
 	public List<Menu> findByUsuario(Usuario usuario);
 	

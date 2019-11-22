@@ -16,8 +16,8 @@ import br.com.ultracar.treinamento.enumerators.Situacao;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>, CustomizedUsuarioRepository {
 
-	@Query("Select operacoes From Usuario u " + "Inner Join Fetch u.permissoesAcesso permissoesAcesso "
-			+ "Inner Join Fetch permissoesAcesso.operacoes operacoes " + "Where u = :usuario")
+	@Query("Select o From Usuario u " + "Inner Join Fetch u.permissoesAcesso pa " + "Inner Join Fetch pa.operacoes o "
+			+ "Where u = :usuario")
 	public List<Operacao> findOperacaoByUsuatio(Usuario usuario);
 
 	@Nullable

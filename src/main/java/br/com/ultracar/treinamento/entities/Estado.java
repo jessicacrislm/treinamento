@@ -44,20 +44,4 @@ public class Estado implements Serializable{
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estado")
 	private Set<Cidade> cidades = new HashSet<>();
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getSigla() {
-		return sigla;
-	}
-
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
-	}
-	
 }

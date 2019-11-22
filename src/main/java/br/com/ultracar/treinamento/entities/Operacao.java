@@ -30,7 +30,6 @@ import lombok.Data;
 @Table(name = "tb_operacao")
 public class Operacao implements Serializable  {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "operacao_sequence")
 	@SequenceGenerator(name = "operacao_sequence", sequenceName = "operacao_id_sequence", allocationSize = 1)
@@ -54,30 +53,5 @@ public class Operacao implements Serializable  {
 	@Builder.Default
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "operacoes")
 	private Set<Servico> servicos = new HashSet<>();
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public Crud getOperacao() {
-		return operacaoEnum;
-	}
-
-	public void setOperacao(Crud operacao) {
-		this.operacaoEnum = operacao;
-	}
-	
 	
 }

@@ -36,7 +36,7 @@ public class PermissaoAcesso implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "permissao_sequence")
 	@SequenceGenerator(name = "permissao_sequence", sequenceName = "permissao_id_sequence", allocationSize = 1)
-	@Column(name = "id_permissao", nullable = false)
+	@Column(name = "id_permissao_acesso", nullable = false)
 	private Long id;
 
 	@NotNull
@@ -60,37 +60,5 @@ public class PermissaoAcesso implements Serializable {
 	@JoinColumn(name = "id_operacao", foreignKey = @ForeignKey(name = "fk_permissao_acesso_permissao_acesso_operacao")) })
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Operacao> operacoes = new HashSet<>();
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Situacao getSituacao() {
-		return situacao;
-	}
-
-	public void setSituacao(Situacao situacao) {
-		this.situacao = situacao;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	public GrupoAcesso getGrupoAcesso() {
-		return grupoAcesso;
-	}
-
-	public void setGrupoAcesso(GrupoAcesso grupoAcesso) {
-		this.grupoAcesso = grupoAcesso;
-	}
 
 }
