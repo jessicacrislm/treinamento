@@ -12,10 +12,10 @@ import br.com.ultracar.treinamento.entities.Cidade;
 @Repository
 public interface BairroRepository extends JpaRepository<Bairro, Long> {
 
-	@Query("Select b From Bairro b Where b.nome = :nome")
+	@Query("Select b From Bairro b Where b.nome like %:nome%")
 	public Bairro findByNome(String nome);
 	
-	@Query("Select b From Bairro b Where b.cidade = ?1")
+	@Query("Select b From Bairro b Where b.cidade = :cidade")
 	public List<Bairro> findByCidade(Cidade cidade);
 	
 }

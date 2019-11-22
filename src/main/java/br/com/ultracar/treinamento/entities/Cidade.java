@@ -16,8 +16,13 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import lombok.Builder;
+import lombok.Data;
+
 @Entity
 @SuppressWarnings("serial")
+@Data
+@Builder
 @Table(name = "tb_cidade")
 public class Cidade implements Serializable{
 
@@ -35,21 +40,5 @@ public class Cidade implements Serializable{
 	@JoinColumn(name = "id_estado", nullable = false, foreignKey = @ForeignKey(name = "fk_cidade_estado"))
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Estado estado;
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
 	
 }

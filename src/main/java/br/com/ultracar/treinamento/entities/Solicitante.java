@@ -15,8 +15,13 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.Builder;
+import lombok.Data;
+
 @Entity
 @SuppressWarnings("serial")
+@Data
+@Builder
 @Table(name = "tb_solicitante")
 public class Solicitante implements Serializable{
 
@@ -30,22 +35,5 @@ public class Solicitante implements Serializable{
 	@JoinColumn(name = "id_endereco", nullable = false, foreignKey = @ForeignKey(name = "fk_solicitante_endereco"))
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Endereco endereco;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-	
 		
 }

@@ -14,11 +14,11 @@ import br.com.ultracar.treinamento.enumerators.Situacao;
 public interface PermissaoAcessoRepository extends JpaRepository<PermissaoAcesso, Long> {
 
 	@Query("Select pa From PermissaoAcesso pa "
-		 + "Inner Join pa.usuario u "
+		 + "Inner Join Fetch pa.usuario u "
 		 + "Where u = :usuario")
-	public List<PermissaoAcesso> findPermissaoAcessoByUsuario(Usuario usuario);
+	public List<PermissaoAcesso> findByUsuario(Usuario usuario);
 	
 	@Query("Select pa From PermissaoAcesso pa Where pa.situacao = :situacao")
-	public List<PermissaoAcesso> findPermissaoAcessoBySituacao(Situacao situacao);
+	public List<PermissaoAcesso> findBySituacao(Situacao situacao);
 	
 }

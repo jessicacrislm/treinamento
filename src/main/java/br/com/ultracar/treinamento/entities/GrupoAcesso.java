@@ -20,8 +20,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import lombok.Builder;
+import lombok.Data;
+
 @SuppressWarnings("serial")
 @Entity
+@Data
+@Builder
 @Table(name = "tb_grupoAcesso")
 public class GrupoAcesso implements Serializable{
 	
@@ -37,6 +42,7 @@ public class GrupoAcesso implements Serializable{
 	@Column(name = "tp_descricao", nullable = false)
 	private String descricao;
 	
+	@Builder.Default
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "grupoAcesso")
 	private Set<PermissaoAcesso> permissoesAcesso = new HashSet<>();
 	

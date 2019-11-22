@@ -12,9 +12,7 @@ import br.com.ultracar.treinamento.entities.Usuario;
 @Repository
 public interface GrupoAcessoRepository extends JpaRepository<GrupoAcesso, Long> {
 
-	@Query("Select usuarios From GrupoAcesso ga "
-		 + "Inner Join ga.usuario usuarios "
-		 + "Where ga = :grupoAcesso")
+	@Query("Select usuarios From GrupoAcesso ga " + "Inner Join Fetch ga.usuario usuarios " + "Where ga = :grupoAcesso")
 	public List<Usuario> findUsuarioByGrupoAcesso(GrupoAcesso grupoAcesso);
 	
 	@Query("Select ga From GrupoAcesso ga Where ga.descricao = :descricao")

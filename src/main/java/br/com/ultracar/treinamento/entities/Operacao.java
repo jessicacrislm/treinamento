@@ -20,9 +20,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.ultracar.treinamento.enumerators.Crud;
+import lombok.Builder;
+import lombok.Data;
 
 @SuppressWarnings("serial")
 @Entity
+@Data
+@Builder
 @Table(name = "tb_operacao")
 public class Operacao implements Serializable  {
 
@@ -43,9 +47,11 @@ public class Operacao implements Serializable  {
 	@Column(name = "en_operacao", nullable = false, length = 10)
 	private Crud operacaoEnum;
 
+	@Builder.Default
 	@ManyToMany(mappedBy = "operacoes", fetch = FetchType.LAZY)
 	private Set<PermissaoAcesso> permissoesAcesso = new HashSet<>();
 	
+	@Builder.Default
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "operacoes")
 	private Set<Servico> servicos = new HashSet<>();
 	

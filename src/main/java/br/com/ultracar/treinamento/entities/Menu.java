@@ -18,8 +18,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import lombok.Builder;
+import lombok.Data;
+
 @SuppressWarnings("serial")
 @Entity
+@Data
+@Builder
 @Table(name = "tb_menu")
 public class Menu implements Serializable{
 
@@ -50,7 +55,7 @@ public class Menu implements Serializable{
 	private String indice;
 	
 	@NotNull
-	@JoinColumn(name = "ID_PERMISSAO_ACESSO", foreignKey = @ForeignKey(name = "fk_menu_permissao_acesso"), nullable = false)
+	@JoinColumn(name = "id_permissao_acesso", foreignKey = @ForeignKey(name = "fk_menu_permissao_acesso"), nullable = false)
 	@ManyToOne(fetch = FetchType.LAZY)
 	private PermissaoAcesso permissaoAcesso;
 	

@@ -20,11 +20,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import lombok.Builder;
+import lombok.Data;
+
+@SuppressWarnings("serial")
 @Entity
+@Data
+@Builder
 @Table(name = "tb_bairro")
 public class Bairro implements Serializable {
-
-	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bairro_sequence")
@@ -43,29 +47,7 @@ public class Bairro implements Serializable {
 	private Cidade cidade;
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "bairro")
-	private Set<Endereco> endereco = new HashSet<>();
+	@Builder.Default
+	private Set<Endereco> enderecos = new HashSet<>();
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public Cidade getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(Cidade cidade) {
-		this.cidade = cidade;
-	}
 }

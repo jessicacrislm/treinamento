@@ -11,12 +11,13 @@ import org.springframework.stereotype.Repository;
 
 import br.com.ultracar.treinamento.entities.Operacao;
 import br.com.ultracar.treinamento.entities.Usuario;
+import br.com.ultracar.treinamento.enumerators.Situacao;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>, CustomizedUsuarioRepository {
 
-	@Query("Select operacoes From Usuario usuario " + "Inner Join ususario.permissoesAcesso permissoesAcesso "
-			+ "Inner Join permissoesAcesso.operacoes operacoes " + "Where usuario = :usuario ")
+	@Query("Select operacoes From Usuario u " + "Inner Join Fetch u.permissoesAcesso permissoesAcesso "
+			+ "Inner Join Fetch permissoesAcesso.operacoes operacoes " + "Where u = :usuario")
 	public List<Operacao> findOperacaoByUsuatio(Usuario usuario);
 
 	@Nullable
@@ -25,5 +26,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>, Customi
 
 	@Query("Select u From Usuario u")
 	public Page<Usuario> findAll(Pageable pageable);
+
+	@Query("Select u From Usuario u Where u.situacao like :situacao")
+	public List<Usuario> findBySituacao(Situacao situacao);
 
 }

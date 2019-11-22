@@ -1,18 +1,27 @@
 package br.com.ultracar.treinamento.entities;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 
+import lombok.Builder;
+import lombok.Data;
+
 @Entity
 @SuppressWarnings("serial")
+@Data
+@Builder
 @Table(name = "tb_estado")
 public class Estado implements Serializable{
 
@@ -26,6 +35,14 @@ public class Estado implements Serializable{
 	@NotBlank
 	@Column(name = "ds_sigla", length = 2, nullable = false)
 	private String sigla;
+	
+	@NotBlank
+	@Column(name = "ds_nome", nullable = false)
+	private String nome;
+	
+	@Builder.Default
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estado")
+	private Set<Cidade> cidades = new HashSet<>();
 
 	public Long getId() {
 		return id;

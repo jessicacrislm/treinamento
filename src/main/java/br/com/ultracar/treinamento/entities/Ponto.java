@@ -15,8 +15,13 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.Builder;
+import lombok.Data;
+
 @Entity
 @SuppressWarnings("serial")
+@Data
+@Builder
 @Table(name = "tb_ponto")
 public class Ponto implements Serializable{
 	
@@ -27,7 +32,7 @@ public class Ponto implements Serializable{
 	private Long id;
 	
 	@NotNull
-	@JoinColumn(name = "ID_ENDERECO", nullable = false, foreignKey = @ForeignKey(name = "fk_ponto_endereco"))
+	@JoinColumn(name = "id_endereco", nullable = false, foreignKey = @ForeignKey(name = "fk_ponto_endereco"))
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Endereco endereco;
 

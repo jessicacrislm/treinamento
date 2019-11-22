@@ -23,9 +23,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.ultracar.treinamento.enumerators.Situacao;
+import lombok.Builder;
+import lombok.Data;
 
 @SuppressWarnings("serial")
 @Entity
+@Data
+@Builder
 @Table(name = "tb_usuario")
 public class Usuario implements Serializable{
 
@@ -61,9 +65,11 @@ public class Usuario implements Serializable{
 	@Column(name = "en_situacao", nullable = false)
 	private Situacao situacao;
 
+	@Builder.Default
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
 	private Set<PermissaoAcesso> permissoesAcesso = new HashSet<>();
 	
+	@Builder.Default
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
 	private Set<GrupoAcesso> grupoAcesso = new HashSet<>();
 	
