@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import br.com.ultracar.treinamento.entities.Estado;
 import br.com.ultracar.treinamento.repositories.EstadoRepository;
 
@@ -19,6 +22,14 @@ public class EstadoService {
 
 	public void salvarEstado(Estado estado) {
 		this.repositorio.save(estado);
+	}
+	
+	public Estado buscarSalvar(Estado estado) {
+		if (this.repositorio.exists(Example.of(estado, ExampleMatcher.matchingAll().withIgnoreCase()))) {
+			return this.repositorio.findBySigla(estado.getSigla());
+		} else {
+			return this.repositorio.save(estado);
+		}
 	}
 
 	public void deletarEstado(Estado estado) {

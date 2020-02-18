@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,14 @@ public class BairroService {
 
 	public void salvarBairro(Bairro bairro) {
 		this.repositorio.save(bairro);
+	}
+	
+	public Bairro buscarSalvar(Bairro bairro) {
+		if (this.repositorio.exists(Example.of(bairro, ExampleMatcher.matchingAll().withIgnoreCase()))) {
+			return this.repositorio.findByNomeCidade(bairro.getNome(), bairro.getCidade().getNome());
+		} else {
+			return this.repositorio.save(bairro);
+		}
 	}
 
 	public void deletarBairro(Bairro bairro) {
@@ -41,5 +51,9 @@ public class BairroService {
 	
 	public List<Bairro> findByCidade(Cidade cidade) {
 		return this.repositorio.findByCidade(cidade);
+	}
+	
+	public Bairro findByNomeCidade(String nomeBairro, String nomeCidade) {
+		return this.repositorio.findByNomeCidade(nomeBairro, nomeCidade);
 	}
 }

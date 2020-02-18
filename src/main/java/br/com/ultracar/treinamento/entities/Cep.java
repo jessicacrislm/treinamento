@@ -16,13 +16,22 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @SuppressWarnings("serial")
 @Entity
 @Data
 @Builder
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "tb_cep")
 public class Cep implements Serializable {
 
@@ -37,6 +46,7 @@ public class Cep implements Serializable {
 	private Integer numero;
 	
 	@NotNull
+	@JsonManagedReference
 	@JoinColumn(name = "id_endereco", nullable = false, foreignKey = @ForeignKey(name = "fk_cep_endereco"))
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Endereco endereco;

@@ -17,5 +17,8 @@ public interface BairroRepository extends JpaRepository<Bairro, Long> {
 	
 	@Query("Select b From Bairro b Where b.cidade = :cidade")
 	public List<Bairro> findByCidade(Cidade cidade);
+
+	@Query("Select b From Bairro b Where b.nome like :nomeBairro and b.cidade.nome Like :nomeCidade")
+	public Bairro findByNomeCidade(String nomeBairro, String nomeCidade);
 	
 }

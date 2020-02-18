@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,15 @@ public class EnderecoService {
 
 	public void salvarEndereco(Endereco endereco) {
 		this.repositorio.save(endereco);
+	}
+	
+	public Endereco buscarSalvar(Endereco endereco) {
+		Example<Endereco> filtro = Example.of(endereco, ExampleMatcher.matchingAll().withIgnoreCase());
+		if (this.repositorio.exists(filtro)) {
+			return this.repositorio.findAll(filtro).stream().findFirst().orElse(null);
+		} else {
+			return this.repositorio.save(endereco);
+		}
 	}
 
 	public void deletarEndereco(Endereco endereco) {

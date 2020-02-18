@@ -20,13 +20,22 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @SuppressWarnings("serial")
 @Entity
 @Data
 @Builder
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "tb_bairro")
 public class Bairro implements Serializable {
 
@@ -48,6 +57,7 @@ public class Bairro implements Serializable {
 	
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "bairro")
 	@Builder.Default
+	@JsonBackReference
 	private Set<Endereco> enderecos = new HashSet<>();
 	
 }
